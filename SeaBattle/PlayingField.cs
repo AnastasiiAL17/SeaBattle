@@ -62,7 +62,7 @@
             ship.Dx = random.Next(-1, 1);
             ship.Dy = random.Next(-1, 1);
             ship.Quadrant = this.GetQuadrant(ship.Coordinates);
-            ship.Lenght = 1;//random.Next(1, 5);
+            ship.Lenght = random.Next(1, 5);
             ship.IsPoint = ship.Lenght == 1;
             ship.Speed = random.Next(1, 5);
             ship.Index = this.GenerateIndex(ship.Quadrant, ship.Coordinates);
