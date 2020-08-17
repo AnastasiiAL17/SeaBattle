@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
     using System.Text;
 
     public class PlayingField
@@ -66,6 +67,7 @@
 
         public StringBuilder GetAllShips()
         {
+            Ships = SortByCenterDistance();
             StringBuilder res = new StringBuilder();
             for(int i = 0; i < Ships.Count; i++)
             {
@@ -82,9 +84,25 @@
             return res;
         }
 
-        public void SortByCenterDistance()
+        public List<Ship> SortByCenterDistance()
         {
-
+            Dictionary<double, Ship> sortedShips = new Dictionary<double, Ship>();
+           
+            foreach(Ship ship in Ships)
+            {
+                double distance = (Math.Sqrt(Math.Pow(ship.Coordinates.X - 0, 2) + Math.Pow(ship.Coordinates.Y - 0, 2)));
+                sortedShips.Add(distance, ship);
+            }
+            Console.WriteLine("Sorted list");
+            sortedShips = sortedShips.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+            List<Ship> s = new List<Ship>();
+            return sortedShips.Values.ToList();
+            foreach (KeyValuePair<double, Ship> ship in sortedShips)
+            {
+               
+                Console.WriteLine("Ship {1} = distance {0}", ship.Key, ship.Value.Index);
+            }
+           
         }
 
         private byte GetQuadrant(Point shipPoint)
