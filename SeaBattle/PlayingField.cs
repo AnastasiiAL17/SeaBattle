@@ -41,6 +41,14 @@
                     break;
             }
             ship.Coordinates = startPoint;
+            CheckEmptyPlace(ship);
+            InitializeShip(ref ship);
+            Ships.Add(ship);
+            return ship;
+        }
+
+        private void InitializeShip(ref Ship ship)
+        {
             Random random = new Random();
             ship.Dx = random.Next(-1, 1);
             ship.Dy = random.Next(-1, 1);
@@ -50,14 +58,28 @@
             ship.Range = random.Next(1, 5);
             ship.Speed = random.Next(1, 5);
             ship.Index = this.GenerateIndex(ship.Quadrant, ship.Coordinates);
-            Ships.Add(ship);
-           
-            return ship;
+            ship.CenterDistance = (Math.Sqrt(Math.Pow(ship.Coordinates.X - 0, 2) + Math.Pow(ship.Coordinates.Y - 0, 2)));
         }
 
-        private void CheckEmptyPlace(Point startPoint, int lentgth)
+        public Point InitNewPoint()
         {
+            Random random = new Random();
+            Point point = new Point
+            {
+                X = random.Next(-10, 10),
+                Y = random.Next(-10, 10)
+            };
+            return point;
+        }
 
+        private void CheckEmptyPlace(Ship ship)
+        {
+            var item = Ships.Find(i => i.Coordinates == ship.Coordinates);
+            bool iscCngruent = item == null;
+            if(!iscCngruent)
+            {
+                ship.Coordinates = InitNewPoint();
+            }
         }
 
         public void SelectShip(string parameter)
@@ -75,28 +97,22 @@
                                                "========================== \n" +
                                                "Quadrant: {1} \n" +
                                                "[x;y] = [{2};{3}] \n" +
+                                               "Length = {4} \n"+
+                                               "Type: {5} \n" +
                                                "========================== \n",
                                  Ships[i].Index,
                                  Ships[i].Quadrant,
                                  Ships[i].Coordinates.X,
-                                 Ships[i].Coordinates.Y));
+                                 Ships[i].Coordinates.Y,
+                                 Ships[i].Lenght,
+                                 Ships[i].Type));
             }
             return res;
         }
 
         public List<Ship> SortByCenterDistance()
         {
-            Dictionary<double, Ship> sortedShips = new Dictionary<double, Ship>();
-           
-            foreach(Ship ship in Ships)
-            {
-                double distance = (Math.Sqrt(Math.Pow(ship.Coordinates.X - 0, 2) + Math.Pow(ship.Coordinates.Y - 0, 2)));
-                sortedShips.Add(distance, ship);
-            }
-            Console.WriteLine("Sorted list");
-            sortedShips = sortedShips.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
-            List<Ship> s = new List<Ship>();
-            return sortedShips.Values.ToList();
+            return Ships.OrderBy(i => i.CenterDistance).ToList();
         }
 
         private byte GetQuadrant(Point shipPoint)

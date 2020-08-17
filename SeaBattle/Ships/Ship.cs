@@ -9,6 +9,7 @@ namespace SeaBattle
         public int Lenght { get; set; }
         public int Range { get; set; }
         public byte Quadrant { get; set; }
+        public double CenterDistance { get; set; }
         public Point Coordinates { get; set; }
         public bool IsPoint { get; set; }
         public ShipType Type { get; set; }
