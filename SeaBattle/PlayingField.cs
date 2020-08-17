@@ -97,12 +97,6 @@
             sortedShips = sortedShips.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
             List<Ship> s = new List<Ship>();
             return sortedShips.Values.ToList();
-            foreach (KeyValuePair<double, Ship> ship in sortedShips)
-            {
-               
-                Console.WriteLine("Ship {1} = distance {0}", ship.Key, ship.Value.Index);
-            }
-           
         }
 
         private byte GetQuadrant(Point shipPoint)
