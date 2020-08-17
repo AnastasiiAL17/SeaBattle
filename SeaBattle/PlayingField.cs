@@ -18,7 +18,9 @@
         }
         public Ship AddShip(Point startPoint, ShipType type)
         {
+            Random random = new Random();
             Ship ship = new MixShip();
+            ship.Range = random.Next(1, 5);
             switch (type)
             {
                 case ShipType.auxiliary:
@@ -26,18 +28,25 @@
                     {
                         Type = ShipType.auxiliary
                     };
+                    AuxiliaryShip aShip = (AuxiliaryShip)ship;
+                    aShip.Repair(ship.Range);
                     break;
                 case ShipType.military:
                     ship = new MilitaryShip
                     {
                         Type = ShipType.military
                     };
+                    MilitaryShip mShip = (MilitaryShip)ship;
+                    mShip.Shoot(ship.Range);
                     break;
                 case ShipType.mix:
                     ship = new MixShip
                     {
                         Type = ShipType.mix
                     };
+                    MixShip mixShip = (MixShip)ship;
+                    mixShip.Repair(ship.Range);
+                    mixShip.Shoot(ship.Range);
                     break;
             }
             ship.Coordinates = startPoint;
@@ -53,9 +62,8 @@
             ship.Dx = random.Next(-1, 1);
             ship.Dy = random.Next(-1, 1);
             ship.Quadrant = this.GetQuadrant(ship.Coordinates);
-            ship.Lenght = random.Next(1, 5);
+            ship.Lenght = 1;//random.Next(1, 5);
             ship.IsPoint = ship.Lenght == 1;
-            ship.Range = random.Next(1, 5);
             ship.Speed = random.Next(1, 5);
             ship.Index = this.GenerateIndex(ship.Quadrant, ship.Coordinates);
             ship.CenterDistance = (Math.Sqrt(Math.Pow(ship.Coordinates.X - 0, 2) + Math.Pow(ship.Coordinates.Y - 0, 2)));
@@ -84,8 +92,20 @@
 
         public void SelectShip(string parameter)
         {
+            StringBuilder result = new StringBuilder();
             Ship selected = Ships.Find(i => i.Index.Equals(parameter));
+            if(selected != null)
+            {
+                result.Append(string.Format("Selected ship #{0} \n",
+                              selected.Index));
+            }
+            else
+            {
+                result.Append("Ship was not selected");
+            }
+            Console.WriteLine(result);
         }
+
 
         public StringBuilder GetAllShips()
         {
@@ -94,7 +114,7 @@
             for(int i = 0; i < Ships.Count; i++)
             {
                 res.AppendFormat(string.Format("Ship #{0} \n"+
-                                               "========================== \n" +
+                                               "-------------------------- \n" +
                                                "Quadrant: {1} \n" +
                                                "[x;y] = [{2};{3}] \n" +
                                                "Length = {4} \n"+

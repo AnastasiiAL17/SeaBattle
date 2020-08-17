@@ -1,15 +1,16 @@
 ﻿namespace SeaBattle
 {
+    using System;
     class MixShip : Ship, IRepairable, IShootable
     {
-        void IRepairable.Repair(int range)
+        public void Repair(int range)
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Repair by MixShip");
         }
 
-        void IShootable.Shoot(int range)
+        public void Shoot(int range)
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Shoot by MixShip");
         }
     }
 }

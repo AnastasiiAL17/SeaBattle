@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
-
-namespace SeaBattle
+﻿namespace SeaBattle
 {
-    public abstract class Ship : IComparable
+    using System;
+    using System.Drawing;
+    public abstract class Ship
     {
         public string Index { get; set; }
         public int Lenght { get; set; }
@@ -18,9 +17,17 @@ namespace SeaBattle
         public int Dy { get; set; }
 
 
-        public int CompareTo(object obj)
+        public void CompareTo(object obj)
         {
-            return Lenght.CompareTo(obj);
+            Ship ship = (Ship)obj;
+            if (this.Type == ship.Type && ship.IsPoint && this.IsPoint)
+            {
+                Console.WriteLine("This ships are equals");
+            }
+            else
+            {
+                Console.WriteLine("This ships are not equals");
+            }
         }
     }
 }

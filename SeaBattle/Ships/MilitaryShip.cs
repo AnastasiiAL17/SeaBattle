@@ -1,10 +1,11 @@
 ﻿namespace SeaBattle
 {
+    using System;
     class MilitaryShip : Ship, IShootable
     {
-        void IShootable.Shoot(int range)
+        public void Shoot(int range)
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Shoot by Military ship");
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿namespace SeaBattle
 {
+    using System;
     class AuxiliaryShip : Ship, IRepairable
     {
-        void IRepairable.Repair(int range)
+        public void Repair(int range)
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Repair by Auxiliary ");
         }
     }
 }
