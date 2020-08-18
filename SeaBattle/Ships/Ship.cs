@@ -26,14 +26,11 @@ namespace SeaBattle
         {
             string result;
             Ship ship = (Ship)obj;
-            if (this.Type == ship.Type && ship.IsPoint && this.IsPoint)
-            {
-                result = "This ships are equals";
-            }
-            else
-            {
-                result = "This ships are not equals";
-            }
+            result = this.Type == ship.Type && 
+                     this.Speed == ship.Speed &&
+                     ship.IsPoint && this.IsPoint
+                     ? "This ships are equals"
+                     : "This ships are not equals";
 
             return result;
         }
