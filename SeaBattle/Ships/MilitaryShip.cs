@@ -1,11 +1,10 @@
 ﻿namespace SeaBattle
 {
-    using System;
     class MilitaryShip : Ship, IShootable
     {
-        public void Shoot()
+        public string Shoot()
         {
-            Console.WriteLine("Shoot by Military ship");
+            return "Shoot by Military ship";
         }
     }
 }
