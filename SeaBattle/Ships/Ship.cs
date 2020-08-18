@@ -1,6 +1,5 @@
 ﻿namespace SeaBattle
 {
-    using System;
     public abstract class Ship
     {
         public string Index { get; set; }
@@ -13,18 +12,19 @@
         public int Dx { get; set; }
         public int Dy { get; set; }
 
-
-        public void CompareTo(object obj)
+        public string CompareTo(object obj)
         {
+            string result = null;
             Ship ship = (Ship)obj;
             if (this.Type == ship.Type && ship.IsPoint && this.IsPoint)
             {
-                Console.WriteLine("This ships are equals");
+                result = "This ships are equals";
             }
             else
             {
-                Console.WriteLine("This ships are not equals");
+                result = "This ships are not equals";
             }
+            return result;
         }
     }
 }

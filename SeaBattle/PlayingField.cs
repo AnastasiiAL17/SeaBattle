@@ -82,7 +82,7 @@
 
        
 
-        public void SelectShip(string parameter)
+        public StringBuilder SelectShip(string parameter)
         {
             StringBuilder result = new StringBuilder();
             Ship selected = Ships.Values.FirstOrDefault(i => i.Index.Equals(parameter));
@@ -95,7 +95,7 @@
             {
                 result.Append("Ship was not selected");
             }
-            Console.WriteLine(result);
+            return result;
         }
 
 
