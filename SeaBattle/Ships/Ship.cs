@@ -1,4 +1,6 @@
-﻿namespace SeaBattle
+﻿using System.Text;
+
+namespace SeaBattle
 {
     public abstract class Ship
     {
@@ -36,9 +38,14 @@
             return result;
         }
 
-        public string Move()
+        public StringBuilder Move()
         {
-            return "This ship is move with speed =" + this.Speed +" km/h";
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendFormat("This ship is move with speed = {0} km/h in directions dx = {1}, dy ={2}",
+                                       this.Speed,
+                                       this.Dx,
+                                       this.Dy);
+            return stringBuilder;
         }
     }
 }
