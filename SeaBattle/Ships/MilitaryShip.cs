@@ -4,7 +4,7 @@
     {
         public string Shoot()
         {
-            return "Shoot by Military ship";
+            return "Shoot by Military ship"+ Range;
         }
     }
 }
