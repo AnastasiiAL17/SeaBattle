@@ -31,7 +31,7 @@
                         Type = ShipType.auxiliary
                     };
                     AuxiliaryShip aShip = (AuxiliaryShip)ship;
-                    aShip.Repair(ship.Range);
+                    aShip.Repair();
                     break;
                 case ShipType.military:
                     ship = new MilitaryShip
@@ -39,7 +39,7 @@
                         Type = ShipType.military
                     };
                     MilitaryShip mShip = (MilitaryShip)ship;
-                    mShip.Shoot(ship.Range);
+                    mShip.Shoot();
                     break;
                 case ShipType.mix:
                     ship = new MixShip
@@ -47,8 +47,8 @@
                         Type = ShipType.mix
                     };
                     MixShip mixShip = (MixShip)ship;
-                    mixShip.Repair(ship.Range);
-                    mixShip.Shoot(ship.Range);
+                    mixShip.Repair();
+                    mixShip.Shoot();
                     break;
             }
         

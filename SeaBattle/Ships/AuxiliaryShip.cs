@@ -3,7 +3,7 @@
     using System;
     class AuxiliaryShip : Ship, IRepairable
     {
-        public void Repair(int range)
+        public void Repair()
         {
             Console.WriteLine("Repair by Auxiliary ");
         }

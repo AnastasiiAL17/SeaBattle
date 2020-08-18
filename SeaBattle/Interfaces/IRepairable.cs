@@ -2,6 +2,6 @@
 {
     interface IRepairable
     {
-        void Repair(int range);
+        void Repair();
     }
 }

@@ -3,12 +3,12 @@
     using System;
     class MixShip : Ship, IRepairable, IShootable
     {
-        public void Repair(int range)
+        public void Repair()
         {
             Console.WriteLine("Repair by MixShip");
         }
 
-        public void Shoot(int range)
+        public void Shoot()
         {
             Console.WriteLine("Shoot by MixShip");
         }
