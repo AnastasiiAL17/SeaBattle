@@ -8,14 +8,17 @@
 
     public class PlayingField
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public Dictionary<Point, Ship> Ships { get; set; }
-
         public PlayingField()
         {
-            Ships = new Dictionary<Point, Ship>();
+            this.Ships = new Dictionary<Point, Ship>();
         }
+
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
+        public Dictionary<Point, Ship> Ships { get; set; }
+
         public Ship AddShip(Point startPoint, ShipType type)
         {
             Random random = new Random();
@@ -30,16 +33,16 @@
                     {
                         Type = ShipType.auxiliary
                     };
-                    AuxiliaryShip aShip = (AuxiliaryShip)ship;
-                    aShip.Repair();
+                    AuxiliaryShip auxiliaryShip = (AuxiliaryShip)ship;
+                    auxiliaryShip.Repair();
                     break;
                 case ShipType.military:
                     ship = new MilitaryShip
                     {
                         Type = ShipType.military
                     };
-                    MilitaryShip mShip = (MilitaryShip)ship;
-                    mShip.Shoot();
+                    MilitaryShip militaryShip = (MilitaryShip)ship;
+                    militaryShip.Shoot();
                     break;
                 case ShipType.mix:
                     ship = new MixShip
@@ -51,22 +54,10 @@
                     mixShip.Shoot();
                     break;
             }
-        
-            InitializeShip(ref ship, startPoint);
-            Ships.Add(startPoint, ship);
-            return ship;
-        }
 
-        private void InitializeShip(ref Ship ship, Point Coordinates)
-        {
-            Random random = new Random();
-            ship.Dx = random.Next(-1, 1);
-            ship.Dy = random.Next(-1, 1);
-            ship.Lenght = random.Next(1, 5);
-            ship.IsPoint = ship.Lenght == 1;
-            ship.Speed = random.Next(1, 5);
-            ship.Index = this.GenerateIndex(this.GetQuadrant(Coordinates), Coordinates);
-            ship.CenterDistance = (Math.Sqrt(Math.Pow(Coordinates.X - 0, 2) + Math.Pow(Coordinates.Y - 0, 2)));
+            this.InitializeShip(ref ship, startPoint);
+            this.Ships.Add(startPoint, ship);
+            return ship;
         }
 
         public Point InitNewPoint()
@@ -80,36 +71,32 @@
             return point;
         }
 
-       
-
         public StringBuilder SelectShip(string parameter)
         {
             StringBuilder result = new StringBuilder();
-            Ship selected = Ships.Values.FirstOrDefault(i => i.Index.Equals(parameter));
-            if(selected != null)
+            Ship selected = this.Ships.Values.FirstOrDefault(i => i.Index.Equals(parameter));
+            if (selected != null)
             {
-                result.Append(string.Format("Selected ship #{0} \n",
-                              selected.Index));
+                result.Append(string.Format("Selected ship #{0} \n", selected.Index));
             }
             else
             {
                 result.Append("Ship was not selected");
             }
+
             return result;
         }
 
-
         public StringBuilder GetAllShips()
         {
-            Ships = SortByCenterDistance();
+            this.Ships = this.SortByCenterDistance();
             StringBuilder res = new StringBuilder();
-            foreach(KeyValuePair<Point, Ship> keyValuePairs in Ships)
-   
+            foreach (KeyValuePair<Point, Ship> keyValuePairs in this.Ships)
             {
-                res.AppendFormat(string.Format("Ship #{0} \n"+
+                res.AppendFormat(string.Format("Ship #{0} \n" +
                                                "-------------------------- \n" +
                                                "[x; y] = [{1};{2}] \n" +
-                                               "Length = {3} \n"+
+                                               "Length = {3} \n" +
                                                "Type: {4} \n" +
                                                "========================== \n",
                                  keyValuePairs.Value.Index,
@@ -118,19 +105,25 @@
                                  keyValuePairs.Value.Lenght,
                                  keyValuePairs.Value.Type));
             }
+
             return res;
         }
 
         public Dictionary<Point, Ship> SortByCenterDistance()
         {
-            return Ships.OrderBy(obj => obj.Value.CenterDistance).ToDictionary(obj => obj.Key, obj => obj.Value);
+            return this.Ships.OrderBy(obj => obj.Value.CenterDistance).ToDictionary(obj => obj.Key, obj => obj.Value);
+        }
+
+        public string GenerateIndex(byte quadrant, Point shipPoint)
+        {
+            return string.Concat(quadrant, Math.Abs(shipPoint.X), Math.Abs(shipPoint.Y));
         }
 
         private byte GetQuadrant(Point shipPoint)
         {
-            if(shipPoint.X * shipPoint.Y > 0)
+            if (shipPoint.X * shipPoint.Y > 0)
             {
-                return (shipPoint.X > 0 && shipPoint.Y > 0 )? (byte)2 : (byte)3;
+                return (shipPoint.X > 0 && shipPoint.Y > 0) ? (byte)2 : (byte)3;
             }
             else
             {
@@ -138,9 +131,16 @@
             }
         }
 
-        public string GenerateIndex(byte quadrant, Point shipPoint)
+        private void InitializeShip(ref Ship ship, Point coordinates)
         {
-            return string.Concat(quadrant, Math.Abs(shipPoint.X), Math.Abs(shipPoint.Y));
+            Random random = new Random();
+            ship.Dx = random.Next(-1, 1);
+            ship.Dy = random.Next(-1, 1);
+            ship.Lenght = random.Next(1, 5);
+            ship.IsPoint = ship.Lenght == 1;
+            ship.Speed = random.Next(1, 5);
+            ship.Index = this.GenerateIndex(this.GetQuadrant(coordinates), coordinates);
+            ship.CenterDistance = Math.Sqrt(Math.Pow(coordinates.X - 0, 2) + Math.Pow(coordinates.Y - 0, 2));
         }
     }
 }

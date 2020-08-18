@@ -1,10 +1,10 @@
 ﻿namespace SeaBattle
 {
-    class MilitaryShip : Ship, IShootable
+    public class MilitaryShip : Ship, IShootable
     {
         public string Shoot()
         {
-            return "Shoot by Military ship"+ Range;
+            return "Shoot by Military ship" + this.Range;
         }
     }
 }
