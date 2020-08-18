@@ -4,7 +4,22 @@ namespace SeaBattle
 {
     public abstract class Ship
     {
-        public string Index { get; set; }
+        public string[] ar;
+        public string[] AddToIndexArr(int size, int value)
+        {
+            if(ar == null)
+            {
+                ar = new string[size+1];
+            }
+            ar.SetValue(value.ToString(), size);
+            return ar;
+        }
+
+        public string this[int q]
+        {
+            get { return ar[q]; }
+            set { ar[q] = value; }
+        }
 
         public int Lenght { get; set; }
 

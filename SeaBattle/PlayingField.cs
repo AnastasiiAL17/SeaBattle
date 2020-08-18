@@ -53,6 +53,8 @@
 
             this.InitializeShip(ref ship, startPoint);
             this.Ships.Add(startPoint, ship);
+            ship.AddToIndexArr(this.Ships.Count,
+                               this.GenerateIndex(this.GetQuadrant(startPoint), startPoint));
             ship.Move();
             return ship;
         }
@@ -68,35 +70,18 @@
             return point;
         }
 
-        public StringBuilder SelectShip(string parameter)
-        {
-            StringBuilder result = new StringBuilder();
-            Ship selected = this.Ships.Values.FirstOrDefault(i => i.Index.Equals(parameter));
-            if (selected != null)
-            {
-                result.Append(string.Format("Selected ship #{0} \n", selected.Index));
-            }
-            else
-            {
-                result.Append("Ship was not selected");
-            }
-
-            return result;
-        }
-
         public StringBuilder GetAllShips()
         {
             this.Ships = this.SortByCenterDistance();
             StringBuilder res = new StringBuilder();
             foreach (KeyValuePair<Point, Ship> keyValuePairs in this.Ships)
             {
-                res.AppendFormat(string.Format("Ship #{0} \n" +
+                res.AppendFormat(string.Format("Ship \n" +
                                                "-------------------------- \n" +
-                                               "[x; y] = [{1};{2}] \n" +
-                                               "Length = {3} \n" +
-                                               "Type: {4} \n" +
+                                               "[x; y] = [{0};{1}] \n" +
+                                               "Length = {2} \n" +
+                                               "Type: {3} \n" +
                                                "========================== \n",
-                                 keyValuePairs.Value.Index,
                                  keyValuePairs.Key.X,
                                  keyValuePairs.Key.Y,
                                  keyValuePairs.Value.Lenght,
@@ -111,9 +96,9 @@
             return this.Ships.OrderBy(obj => obj.Value.CenterDistance).ToDictionary(obj => obj.Key, obj => obj.Value);
         }
 
-        public string GenerateIndex(byte quadrant, Point shipPoint)
+        public int GenerateIndex(byte quadrant, Point shipPoint)
         {
-            return string.Concat(quadrant, Math.Abs(shipPoint.X), Math.Abs(shipPoint.Y));
+            return Convert.ToInt32(string.Concat(quadrant, Math.Abs(shipPoint.X), Math.Abs(shipPoint.Y)));
         }
 
         private byte GetQuadrant(Point shipPoint)
@@ -136,7 +121,6 @@
             ship.Lenght = random.Next(1, 5);
             ship.IsPoint = ship.Lenght == 1;
             ship.Speed = random.Next(1, 5);
-            ship.Index = this.GenerateIndex(this.GetQuadrant(coordinates), coordinates);
             ship.CenterDistance = Math.Sqrt(Math.Pow(coordinates.X - 0, 2) + Math.Pow(coordinates.Y - 0, 2));
         }
     }
