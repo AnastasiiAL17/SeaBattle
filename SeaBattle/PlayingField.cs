@@ -62,11 +62,10 @@
             Random random = new Random();
             ship.Dx = random.Next(-1, 1);
             ship.Dy = random.Next(-1, 1);
-            ship.Quadrant = this.GetQuadrant(Coordinates);
             ship.Lenght = random.Next(1, 5);
             ship.IsPoint = ship.Lenght == 1;
             ship.Speed = random.Next(1, 5);
-            ship.Index = this.GenerateIndex(ship.Quadrant, Coordinates);
+            ship.Index = this.GenerateIndex(this.GetQuadrant(Coordinates), Coordinates);
             ship.CenterDistance = (Math.Sqrt(Math.Pow(Coordinates.X - 0, 2) + Math.Pow(Coordinates.Y - 0, 2)));
         }
 
@@ -102,21 +101,20 @@
 
         public StringBuilder GetAllShips()
         {
-     //       Ships = SortByCenterDistance();
+            Ships = SortByCenterDistance();
             StringBuilder res = new StringBuilder();
             foreach(KeyValuePair<Point, Ship> keyValuePairs in Ships)
    
             {
-                res.AppendFormat(string.Format("Ship #{0} [{1};{2}] \n"+
+                res.AppendFormat(string.Format("Ship #{0} \n"+
                                                "-------------------------- \n" +
-                                               "Quadrant: {3} \n" +
-                                               "Length = {4} \n"+
-                                               "Type: {5} \n" +
+                                               "[x; y] = [{1};{2}] \n" +
+                                               "Length = {3} \n"+
+                                               "Type: {4} \n" +
                                                "========================== \n",
                                  keyValuePairs.Value.Index,
                                  keyValuePairs.Key.X,
                                  keyValuePairs.Key.Y,
-                                 keyValuePairs.Value.Quadrant,
                                  keyValuePairs.Value.Lenght,
                                  keyValuePairs.Value.Type));
             }
@@ -125,7 +123,7 @@
 
         public Dictionary<Point, Ship> SortByCenterDistance()
         {
-            return (Dictionary<Point, Ship>)Ships.OrderBy(i => i.Value.CenterDistance);
+            return Ships.OrderBy(obj => obj.Value.CenterDistance).ToDictionary(obj => obj.Key, obj => obj.Value);
         }
 
         private byte GetQuadrant(Point shipPoint)

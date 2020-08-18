@@ -1,13 +1,11 @@
 ﻿namespace SeaBattle
 {
     using System;
-    using System.Drawing;
     public abstract class Ship
     {
         public string Index { get; set; }
         public int Lenght { get; set; }
         public int Range { get; set; }
-        public byte Quadrant { get; set; }
         public double CenterDistance { get; set; }
         public bool IsPoint { get; set; }
         public ShipType Type { get; set; }
