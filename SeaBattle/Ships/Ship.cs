@@ -1,7 +1,7 @@
-﻿using System.Text;
-
-namespace SeaBattle
+﻿namespace SeaBattle
 {
+    using System.Text;
+
     public abstract class Ship
     {
         public string[] ar;
@@ -37,19 +37,6 @@ namespace SeaBattle
 
         public int Dy { get; set; }
 
-        public string CompareTo(object obj)
-        {
-            string result;
-            Ship ship = (Ship)obj;
-            result = this.Type == ship.Type && 
-                     this.Speed == ship.Speed &&
-                     ship.IsPoint && this.IsPoint
-                     ? "This ships are equals"
-                     : "This ships are not equals";
-
-            return result;
-        }
-
         public StringBuilder Move()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -58,6 +45,44 @@ namespace SeaBattle
                                        this.Dx,
                                        this.Dy);
             return stringBuilder;
+        }
+
+        public static string operator >=(Ship a, Ship b)
+        {
+            return "this operation is not support";
+        }
+
+        public static string operator <=(Ship a, Ship b)
+        {
+            return "this operation is not support";
+        }
+
+        public static string operator >(Ship a, Ship b)
+        {
+            return "this operation is not support";
+        }
+
+        public static string operator <(Ship a, Ship b)
+        {
+            return "this operation is not support";
+        }
+
+        private static bool IsEqualsShips(Ship a, Ship b)
+        {
+            bool res;
+            res = a.Type == b.Type &&
+                  a.Speed == b.Speed &&
+                  b.IsPoint && a.IsPoint;
+            return res;
+        }
+        public static bool operator ==(Ship a, Ship b)
+        {
+            return IsEqualsShips(a,b);
+        }
+
+        public static bool operator !=(Ship a, Ship b)
+        {
+            return !IsEqualsShips(a, b);
         }
     }
 }
