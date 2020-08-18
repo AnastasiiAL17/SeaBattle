@@ -35,5 +35,10 @@
 
             return result;
         }
+
+        public string Move()
+        {
+            return "This ship is move with speed =" + this.Speed +" km/h";
+        }
     }
 }

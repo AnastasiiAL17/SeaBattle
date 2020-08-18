@@ -13,10 +13,6 @@
             this.Ships = new Dictionary<Point, Ship>();
         }
 
-        public int Width { get; set; }
-
-        public int Height { get; set; }
-
         public Dictionary<Point, Ship> Ships { get; set; }
 
         public Ship AddShip(Point startPoint, ShipType type)
@@ -57,6 +53,7 @@
 
             this.InitializeShip(ref ship, startPoint);
             this.Ships.Add(startPoint, ship);
+            ship.Move();
             return ship;
         }
 
