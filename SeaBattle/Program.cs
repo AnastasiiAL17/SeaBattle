@@ -13,10 +13,6 @@
             MixShip mixShip1 = (MixShip)playingField.AddShip(playingField.InitNewPoint(), ShipType.mix);
             mixShip1.CompareTo(mixShip);
             Console.WriteLine(playingField.GetAllShips());
-
-            //Console.WriteLine("Do you want select ship? Input index:");
-            //string index = Console.ReadLine();
-            //playingField.SelectShip(index);
         }
     }
 }
