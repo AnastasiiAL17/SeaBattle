@@ -2,6 +2,6 @@
 {
     public interface IShootable
     {
-        void Shoot();
+        string Shoot();
     }
 }

@@ -1,16 +1,15 @@
 ﻿namespace SeaBattle
 {
-    using System;
-    class MixShip : Ship, IRepairable, IShootable
+    public class MixShip : Ship, IRepairable, IShootable
     {
-        public void Repair()
+        public string Repair()
         {
-            Console.WriteLine("Repair by MixShip");
+            return "Repair by MixShip" + this.Range;
         }
 
-        public void Shoot()
+        public string Shoot()
         {
-            Console.WriteLine("Shoot by MixShip");
+            return "Shoot by MixShip" + this.Range;
         }
     }
 }

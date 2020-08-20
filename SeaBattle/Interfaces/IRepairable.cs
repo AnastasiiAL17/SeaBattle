@@ -1,7 +1,7 @@
 ﻿namespace SeaBattle
 {
-    interface IRepairable
+    public interface IRepairable
     {
-        void Repair();
+        string Repair();
     }
 }
