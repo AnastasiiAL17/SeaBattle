@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using System.Text;
 
     public class PlayingField
     {
@@ -13,6 +12,22 @@
             this.Ships = new Dictionary<Point, Ship>();
         }
 
+        private Ship[] indexArr = new Ship[5];
+        public Ship[] AddToIndexArr(int size, Ship value)
+        {
+            if (indexArr == null)
+            {
+                indexArr = new Ship[size-1];
+            }
+            indexArr.SetValue(value,size-1);
+            return indexArr;
+        }
+
+        public Ship this[int q]
+        {
+            get { return indexArr[q]; }
+            set { indexArr[q] = value; }
+        }
         public Dictionary<Point, Ship> Ships { get; set; }
 
         public Ship AddShip(Point startPoint, ShipType type)
@@ -44,8 +59,8 @@
 
             this.InitializeShip(ref ship, startPoint);
             this.Ships.Add(startPoint, ship);
-            ship.AddToIndexArr(this.Ships.Count,
-                               this.GenerateIndex(this.GetQuadrant(startPoint), startPoint));
+            AddToIndexArr(Ships.Count, ship);
+                         // this.GenerateIndex(this.GetQuadrant(startPoint), startPoint));
             ship.Move();
             return ship;
         }

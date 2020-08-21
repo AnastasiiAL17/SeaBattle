@@ -4,23 +4,7 @@
 
     public abstract class Ship
     {
-        private string[] indexArr;
-        public string[] AddToIndexArr(int size, int value)
-        {
-            if(indexArr == null)
-            {
-                indexArr = new string[size+1];
-            }
-            indexArr.SetValue(value.ToString(), size);
-            return indexArr;
-        }
-
-        public string this[int q]
-        {
-            get { return indexArr[q]; }
-            set { indexArr[q] = value; }
-        }
-
+      
         public int Length { get; set; }
 
         public int Range { get; set; }
@@ -32,7 +16,6 @@
                 return Length == 1;
             }
         }
-
 
         public float Speed { get; set; }
 
