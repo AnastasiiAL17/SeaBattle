@@ -4,21 +4,21 @@
 
     public abstract class Ship
     {
-        public string[] ar;
+        string[] indexArr;
         public string[] AddToIndexArr(int size, int value)
         {
-            if(ar == null)
+            if(indexArr == null)
             {
-                ar = new string[size+1];
+                indexArr = new string[size+1];
             }
-            ar.SetValue(value.ToString(), size);
-            return ar;
+            indexArr.SetValue(value.ToString(), size);
+            return indexArr;
         }
 
         public string this[int q]
         {
-            get { return ar[q]; }
-            set { ar[q] = value; }
+            get { return indexArr[q]; }
+            set { indexArr[q] = value; }
         }
 
         public int Lenght { get; set; }

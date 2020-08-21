@@ -24,26 +24,26 @@
             };
             switch (type)
             {
-                case ShipType.auxiliary:
+                case ShipType.Auxiliary:
                     ship = new AuxiliaryShip
                     {
-                        Type = ShipType.auxiliary
+                        Type = ShipType.Auxiliary
                     };
                     AuxiliaryShip auxiliaryShip = (AuxiliaryShip)ship;
                     auxiliaryShip.Repair();
                     break;
-                case ShipType.military:
+                case ShipType.Military:
                     ship = new MilitaryShip
                     {
-                        Type = ShipType.military
+                        Type = ShipType.Military
                     };
                     MilitaryShip militaryShip = (MilitaryShip)ship;
                     militaryShip.Shoot();
                     break;
-                case ShipType.mix:
+                case ShipType.Mix:
                     ship = new MixShip
                     {
-                        Type = ShipType.mix
+                        Type = ShipType.Mix
                     };
                     MixShip mixShip = (MixShip)ship;
                     mixShip.Repair();
