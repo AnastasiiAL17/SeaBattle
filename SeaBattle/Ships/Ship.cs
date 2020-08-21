@@ -25,8 +25,6 @@
 
         public int Range { get; set; }
 
-        public double CenterDistance { get; set; }
-
         public bool IsPoint
         {
             get

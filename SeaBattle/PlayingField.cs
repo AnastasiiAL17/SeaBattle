@@ -82,7 +82,7 @@
 
         private Dictionary<Point, Ship> SortByCenterDistance()
         {
-            return this.Ships.OrderBy(obj => obj.Value.CenterDistance).ToDictionary(obj => obj.Key, obj => obj.Value);
+            return this.Ships.OrderBy(obj => GetCenterDistance(obj.Key)).ToDictionary(obj => obj.Key, obj => obj.Value);
         }
 
         private int GenerateIndex(byte quadrant, Point shipPoint)
@@ -109,7 +109,11 @@
             ship.Dy = random.Next(Сonfiguration.MinMovementVector, Сonfiguration.MaxMovementVector);
             ship.Length = random.Next(Сonfiguration.MinLength, Сonfiguration.MaxLength);
             ship.Speed = random.Next(1, 5);
-            ship.CenterDistance = Math.Sqrt(Math.Pow(coordinates.X - 0, 2) + Math.Pow(coordinates.Y - 0, 2));
+        }
+
+        private double GetCenterDistance(Point coordinates)
+        {
+            return Math.Sqrt(Math.Pow(coordinates.X - 0, 2) + Math.Pow(coordinates.Y - 0, 2));
         }
     }
 }
