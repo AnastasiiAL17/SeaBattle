@@ -80,6 +80,12 @@
             return IsEqualsShips(a,b);
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Ship ship && 
+                   IsEqualsShips(this, ship);
+        }
+
         public static bool operator !=(Ship a, Ship b)
         {
             return !IsEqualsShips(a, b);
