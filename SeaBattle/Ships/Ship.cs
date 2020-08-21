@@ -27,7 +27,13 @@
 
         public double CenterDistance { get; set; }
 
-        public bool IsPoint { get; set; }
+        public bool IsPoint
+        {
+            get
+            {
+                return Length == 1;
+            }
+        }
 
         public ShipType Type { get; set; }
 

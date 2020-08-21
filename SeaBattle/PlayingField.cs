@@ -119,7 +119,6 @@
             ship.Dx = random.Next(Сonfiguration.MinMovementVector, Сonfiguration.MaxMovementVector);
             ship.Dy = random.Next(Сonfiguration.MinMovementVector, Сonfiguration.MaxMovementVector);
             ship.Length = random.Next(Сonfiguration.MinLength, Сonfiguration.MaxLength);
-            ship.IsPoint = ship.Length == 1;
             ship.Speed = random.Next(1, 5);
             ship.CenterDistance = Math.Sqrt(Math.Pow(coordinates.X - 0, 2) + Math.Pow(coordinates.Y - 0, 2));
         }
