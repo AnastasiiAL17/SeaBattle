@@ -35,7 +35,6 @@
             }
         }
 
-        public ShipType Type { get; set; }
 
         public float Speed { get; set; }
 
@@ -76,11 +75,12 @@
         private static bool IsEqualsShips(Ship a, Ship b)
         {
             bool res;
-            res = a.Type == b.Type &&
+            res = a.GetType() == b.GetType() &&
                   a.Speed == b.Speed &&
                   b.IsPoint && a.IsPoint;
             return res;
         }
+
         public static bool operator ==(Ship a, Ship b)
         {
             return IsEqualsShips(a,b);

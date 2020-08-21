@@ -25,26 +25,17 @@
             switch (type)
             {
                 case ShipType.Auxiliary:
-                    ship = new AuxiliaryShip
-                    {
-                        Type = ShipType.Auxiliary
-                    };
+                    ship = new AuxiliaryShip();
                     AuxiliaryShip auxiliaryShip = (AuxiliaryShip)ship;
                     auxiliaryShip.Repair();
                     break;
                 case ShipType.Military:
-                    ship = new MilitaryShip
-                    {
-                        Type = ShipType.Military
-                    };
+                    ship = new MilitaryShip();
                     MilitaryShip militaryShip = (MilitaryShip)ship;
                     militaryShip.Shoot();
                     break;
                 case ShipType.Mix:
-                    ship = new MixShip
-                    {
-                        Type = ShipType.Mix
-                    };
+                    ship = new MixShip();
                     MixShip mixShip = (MixShip)ship;
                     mixShip.Repair();
                     mixShip.Shoot();
@@ -80,12 +71,10 @@
                                                "-------------------------- \n" +
                                                "[x; y] = [{0};{1}] \n" +
                                                "Length = {2} \n" +
-                                               "Type: {3} \n" +
                                                "========================== \n",
                                  keyValuePairs.Key.X,
                                  keyValuePairs.Key.Y,
-                                 keyValuePairs.Value.Length,
-                                 keyValuePairs.Value.Type));
+                                 keyValuePairs.Value.Length));
             }
 
             return res;
