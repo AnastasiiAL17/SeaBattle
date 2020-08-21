@@ -61,23 +61,9 @@
             return point;
         }
 
-        public StringBuilder GetAllShips()
+        public Dictionary<Point, Ship> GetAllShips()
         {
-            this.Ships = this.SortByCenterDistance();
-            StringBuilder res = new StringBuilder();
-            foreach (KeyValuePair<Point, Ship> keyValuePairs in this.Ships)
-            {
-                res.AppendFormat(string.Format("Ship \n" +
-                                               "-------------------------- \n" +
-                                               "[x; y] = [{0};{1}] \n" +
-                                               "Length = {2} \n" +
-                                               "========================== \n",
-                                 keyValuePairs.Key.X,
-                                 keyValuePairs.Key.Y,
-                                 keyValuePairs.Value.Length));
-            }
-
-            return res;
+            return this.SortByCenterDistance();
         }
 
         private Dictionary<Point, Ship> SortByCenterDistance()
