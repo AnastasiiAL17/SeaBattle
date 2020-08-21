@@ -21,7 +21,7 @@
             set { indexArr[q] = value; }
         }
 
-        public int Lenght { get; set; }
+        public int Length { get; set; }
 
         public int Range { get; set; }
 

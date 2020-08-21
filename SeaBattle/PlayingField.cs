@@ -84,7 +84,7 @@
                                                "========================== \n",
                                  keyValuePairs.Key.X,
                                  keyValuePairs.Key.Y,
-                                 keyValuePairs.Value.Lenght,
+                                 keyValuePairs.Value.Length,
                                  keyValuePairs.Value.Type));
             }
 
@@ -118,8 +118,8 @@
             Random random = new Random();
             ship.Dx = random.Next(-1, 1);
             ship.Dy = random.Next(-1, 1);
-            ship.Lenght = random.Next(1, 5);
-            ship.IsPoint = ship.Lenght == 1;
+            ship.Length = random.Next(1, 5);
+            ship.IsPoint = ship.Length == 1;
             ship.Speed = random.Next(1, 5);
             ship.CenterDistance = Math.Sqrt(Math.Pow(coordinates.X - 0, 2) + Math.Pow(coordinates.Y - 0, 2));
         }
