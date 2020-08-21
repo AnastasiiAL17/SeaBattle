@@ -91,12 +91,12 @@
             return res;
         }
 
-        public Dictionary<Point, Ship> SortByCenterDistance()
+        private Dictionary<Point, Ship> SortByCenterDistance()
         {
             return this.Ships.OrderBy(obj => obj.Value.CenterDistance).ToDictionary(obj => obj.Key, obj => obj.Value);
         }
 
-        public int GenerateIndex(byte quadrant, Point shipPoint)
+        private int GenerateIndex(byte quadrant, Point shipPoint)
         {
             return Convert.ToInt32(string.Concat(quadrant, Math.Abs(shipPoint.X), Math.Abs(shipPoint.Y)));
         }

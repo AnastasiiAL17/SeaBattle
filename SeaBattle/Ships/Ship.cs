@@ -4,7 +4,7 @@
 
     public abstract class Ship
     {
-        string[] indexArr;
+        private string[] indexArr;
         public string[] AddToIndexArr(int size, int value)
         {
             if(indexArr == null)
