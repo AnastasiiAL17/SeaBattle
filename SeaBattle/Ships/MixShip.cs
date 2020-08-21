@@ -1,6 +1,8 @@
-﻿namespace SeaBattle
+﻿using SeaBattle.Interfaces;
+
+namespace SeaBattle
 {
-    public class MixShip : Ship, IRepairable, IShootable
+    public class MixShip : Ship, IAbstractMixShip
     {
         public string Repair()
         {

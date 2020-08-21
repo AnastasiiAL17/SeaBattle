@@ -1,8 +1,9 @@
 ﻿namespace SeaBattle
 {
+    using SeaBattle.Interfaces;
     using System.Text;
 
-    public abstract class Ship
+    public abstract class Ship : IAbstractShip
     {
       
         public int Length { get; set; }
@@ -73,6 +74,22 @@
                    IsEqualsShips(this, ship);
         }
 
+        public IAbstractAuxiliaryShip CreateAuxiliaryShip()
+        {
+            return new AuxiliaryShip();
+        }
+
+        public IAbstractMilitaryShip CreateMilitaryShip()
+        {
+            return new MilitaryShip();
+        }
+
+        public IAbstractMixShip CreateMixShip()
+        {
+            return new MixShip();
+        }
+
+       
         public static bool operator !=(Ship a, Ship b)
         {
             return !IsEqualsShips(a, b);

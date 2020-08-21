@@ -40,20 +40,13 @@
             switch (type)
             {
                 case ShipType.Auxiliary:
-                    ship = new AuxiliaryShip();
-                    AuxiliaryShip auxiliaryShip = (AuxiliaryShip)ship;
-                    auxiliaryShip.Repair();
+                    ship.CreateAuxiliaryShip();
                     break;
                 case ShipType.Military:
-                    ship = new MilitaryShip();
-                    MilitaryShip militaryShip = (MilitaryShip)ship;
-                    militaryShip.Shoot();
+                    ship.CreateMilitaryShip();
                     break;
                 case ShipType.Mix:
-                    ship = new MixShip();
-                    MixShip mixShip = (MixShip)ship;
-                    mixShip.Repair();
-                    mixShip.Shoot();
+                    ship.CreateMixShip();
                     break;
             }
 

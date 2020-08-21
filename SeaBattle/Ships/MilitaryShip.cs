@@ -1,6 +1,8 @@
-﻿namespace SeaBattle
+﻿using SeaBattle.Interfaces;
+
+namespace SeaBattle
 {
-    public class MilitaryShip : Ship, IShootable
+    public class MilitaryShip : Ship, IAbstractMilitaryShip
     {
         public string Shoot()
         {
