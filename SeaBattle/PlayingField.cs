@@ -53,7 +53,7 @@
             this.InitializeShip(ref ship, startPoint);
             this.Ships.Add(startPoint, ship);
             AddToIndexArr(Ships.Count, ship);
-                         // this.GenerateIndex(this.GetQuadrant(startPoint), startPoint));
+            var i = this.GenerateIndex(this.GetQuadrant(startPoint), startPoint);
             ship.Move();
             return ship;
         }
@@ -81,9 +81,16 @@
 
         private int GenerateIndex(byte quadrant, Point shipPoint)
         {
-            return Convert.ToInt32(string.Concat(quadrant, Math.Abs(shipPoint.X), Math.Abs(shipPoint.Y)));
+            var coords = ConcatInt(Math.Abs(shipPoint.X), Math.Abs(shipPoint.Y)); 
+            return ConcatInt(quadrant, coords);
         }
 
+        private static int ConcatInt(int a, int b)
+        {
+            int bLength = (int)Math.Ceiling(Math.Log10(b));
+            int ab = (a * ((int)Math.Pow(10, bLength))) + b;
+            return (int)ab;
+        }
         private byte GetQuadrant(Point shipPoint)
         {
             if (shipPoint.X >= 0)
