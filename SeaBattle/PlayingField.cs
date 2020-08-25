@@ -86,14 +86,9 @@
 
         private byte GetQuadrant(Point shipPoint)
         {
-            if (shipPoint.X * shipPoint.Y > 0)
-            {
-                return (shipPoint.X > 0 && shipPoint.Y > 0) ? (byte)2 : (byte)3;
-            }
-            else
-            {
-                return shipPoint.X > 0 && shipPoint.Y < 0 ? (byte)4 : (byte)1;
-            }
+            if (shipPoint.X >= 0)
+                return shipPoint.Y >= 0 ? (byte)1 : (byte)4;
+            return shipPoint.Y >= 0 ? (byte)2 : (byte)3;
         }
 
         private void InitializeShip(ref Ship ship, Point coordinates)
