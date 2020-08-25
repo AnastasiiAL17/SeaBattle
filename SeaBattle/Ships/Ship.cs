@@ -5,7 +5,11 @@
 
     public abstract class Ship : IAbstractShip
     {
-      
+        public Ship()
+        {
+            this.Move();
+        }
+
         public int Length { get; set; }
 
         public int Range { get; set; }

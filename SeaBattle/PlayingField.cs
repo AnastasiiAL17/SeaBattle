@@ -28,6 +28,7 @@
             get { return indexArr[q]; }
             set { indexArr[q] = value; }
         }
+
         public Dictionary<Point, Ship> Ships { get; set; }
 
         public Ship AddShip(Point startPoint, ShipType type)
@@ -54,7 +55,6 @@
             this.Ships.Add(startPoint, ship);
             AddToIndexArr(Ships.Count, ship);
             var i = this.GenerateIndex(this.GetQuadrant(startPoint), startPoint);
-            ship.Move();
             return ship;
         }
 
