@@ -4,13 +4,29 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using System.Text;
 
     public class PlayingField
     {
         public PlayingField()
         {
             this.Ships = new Dictionary<Point, Ship>();
+        }
+
+        private Ship[] indexArr = new Ship[5];
+        public Ship[] AddToIndexArr(int size, Ship value)
+        {
+            if (indexArr == null)
+            {
+                indexArr = new Ship[size-1];
+            }
+            indexArr.SetValue(value,size-1);
+            return indexArr;
+        }
+
+        public Ship this[int q]
+        {
+            get { return indexArr[q]; }
+            set { indexArr[q] = value; }
         }
 
         public Dictionary<Point, Ship> Ships { get; set; }
@@ -20,42 +36,25 @@
             Random random = new Random();
             Ship ship = new MixShip
             {
-                Range = random.Next(1, 5)
+                Range = random.Next(Сonfiguration.MinRange, Сonfiguration.MaxRange)
             };
             switch (type)
             {
-                case ShipType.auxiliary:
-                    ship = new AuxiliaryShip
-                    {
-                        Type = ShipType.auxiliary
-                    };
-                    AuxiliaryShip auxiliaryShip = (AuxiliaryShip)ship;
-                    auxiliaryShip.Repair();
+                case ShipType.Auxiliary:
+                    ship.CreateAuxiliaryShip();
                     break;
-                case ShipType.military:
-                    ship = new MilitaryShip
-                    {
-                        Type = ShipType.military
-                    };
-                    MilitaryShip militaryShip = (MilitaryShip)ship;
-                    militaryShip.Shoot();
+                case ShipType.Military:
+                    ship.CreateMilitaryShip();
                     break;
-                case ShipType.mix:
-                    ship = new MixShip
-                    {
-                        Type = ShipType.mix
-                    };
-                    MixShip mixShip = (MixShip)ship;
-                    mixShip.Repair();
-                    mixShip.Shoot();
+                case ShipType.Mix:
+                    ship.CreateMixShip();
                     break;
             }
 
             this.InitializeShip(ref ship, startPoint);
             this.Ships.Add(startPoint, ship);
-            ship.AddToIndexArr(this.Ships.Count,
-                               this.GenerateIndex(this.GetQuadrant(startPoint), startPoint));
-            ship.Move();
+            AddToIndexArr(Ships.Count, ship);
+            var i = this.GenerateIndex(this.GetQuadrant(startPoint), startPoint);
             return ship;
         }
 
@@ -64,64 +63,53 @@
             Random random = new Random();
             Point point = new Point
             {
-                X = random.Next(-10, 10),
-                Y = random.Next(-10, 10)
+                X = random.Next(Сonfiguration.MinCoordinate, Сonfiguration.MaxCoordinate),
+                Y = random.Next(Сonfiguration.MinCoordinate, Сonfiguration.MaxCoordinate)
             };
             return point;
         }
 
-        public StringBuilder GetAllShips()
+        public Dictionary<Point, Ship> GetAllShips()
         {
-            this.Ships = this.SortByCenterDistance();
-            StringBuilder res = new StringBuilder();
-            foreach (KeyValuePair<Point, Ship> keyValuePairs in this.Ships)
-            {
-                res.AppendFormat(string.Format("Ship \n" +
-                                               "-------------------------- \n" +
-                                               "[x; y] = [{0};{1}] \n" +
-                                               "Length = {2} \n" +
-                                               "Type: {3} \n" +
-                                               "========================== \n",
-                                 keyValuePairs.Key.X,
-                                 keyValuePairs.Key.Y,
-                                 keyValuePairs.Value.Lenght,
-                                 keyValuePairs.Value.Type));
-            }
-
-            return res;
+            return this.SortByCenterDistance();
         }
 
-        public Dictionary<Point, Ship> SortByCenterDistance()
+        private Dictionary<Point, Ship> SortByCenterDistance()
         {
-            return this.Ships.OrderBy(obj => obj.Value.CenterDistance).ToDictionary(obj => obj.Key, obj => obj.Value);
+            return this.Ships.OrderBy(obj => GetCenterDistance(obj.Key)).ToDictionary(obj => obj.Key, obj => obj.Value);
         }
 
-        public int GenerateIndex(byte quadrant, Point shipPoint)
+        private int GenerateIndex(byte quadrant, Point shipPoint)
         {
-            return Convert.ToInt32(string.Concat(quadrant, Math.Abs(shipPoint.X), Math.Abs(shipPoint.Y)));
+            var coords = ConcatInt(Math.Abs(shipPoint.X), Math.Abs(shipPoint.Y)); 
+            return ConcatInt(quadrant, coords);
         }
 
+        private static int ConcatInt(int a, int b)
+        {
+            int bLength = (int)Math.Ceiling(Math.Log10(b));
+            int ab = (a * ((int)Math.Pow(10, bLength))) + b;
+            return (int)ab;
+        }
         private byte GetQuadrant(Point shipPoint)
         {
-            if (shipPoint.X * shipPoint.Y > 0)
-            {
-                return (shipPoint.X > 0 && shipPoint.Y > 0) ? (byte)2 : (byte)3;
-            }
-            else
-            {
-                return shipPoint.X > 0 && shipPoint.Y < 0 ? (byte)4 : (byte)1;
-            }
+            if (shipPoint.X >= 0)
+                return shipPoint.Y >= 0 ? (byte)1 : (byte)4;
+            return shipPoint.Y >= 0 ? (byte)2 : (byte)3;
         }
 
         private void InitializeShip(ref Ship ship, Point coordinates)
         {
             Random random = new Random();
-            ship.Dx = random.Next(-1, 1);
-            ship.Dy = random.Next(-1, 1);
-            ship.Lenght = random.Next(1, 5);
-            ship.IsPoint = ship.Lenght == 1;
+            ship.Dx = random.Next(Сonfiguration.MinMovementVector, Сonfiguration.MaxMovementVector);
+            ship.Dy = random.Next(Сonfiguration.MinMovementVector, Сonfiguration.MaxMovementVector);
+            ship.Length = random.Next(Сonfiguration.MinLength, Сonfiguration.MaxLength);
             ship.Speed = random.Next(1, 5);
-            ship.CenterDistance = Math.Sqrt(Math.Pow(coordinates.X - 0, 2) + Math.Pow(coordinates.Y - 0, 2));
+        }
+
+        private double GetCenterDistance(Point coordinates)
+        {
+            return Math.Sqrt(Math.Pow(coordinates.X - 0, 2) + Math.Pow(coordinates.Y - 0, 2));
         }
     }
 }

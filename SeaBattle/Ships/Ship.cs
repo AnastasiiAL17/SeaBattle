@@ -1,35 +1,26 @@
 ﻿namespace SeaBattle
 {
+    using SeaBattle.Interfaces;
     using System.Text;
 
-    public abstract class Ship
+    public abstract class Ship : IAbstractShip
     {
-        public string[] ar;
-        public string[] AddToIndexArr(int size, int value)
+        public Ship()
         {
-            if(ar == null)
-            {
-                ar = new string[size+1];
-            }
-            ar.SetValue(value.ToString(), size);
-            return ar;
+            this.Move();
         }
 
-        public string this[int q]
-        {
-            get { return ar[q]; }
-            set { ar[q] = value; }
-        }
-
-        public int Lenght { get; set; }
+        public int Length { get; set; }
 
         public int Range { get; set; }
 
-        public double CenterDistance { get; set; }
-
-        public bool IsPoint { get; set; }
-
-        public ShipType Type { get; set; }
+        public bool IsPoint
+        {
+            get
+            {
+                return Length == 1;
+            }
+        }
 
         public float Speed { get; set; }
 
@@ -70,16 +61,39 @@
         private static bool IsEqualsShips(Ship a, Ship b)
         {
             bool res;
-            res = a.Type == b.Type &&
+            res = a.GetType() == b.GetType() &&
                   a.Speed == b.Speed &&
                   b.IsPoint && a.IsPoint;
             return res;
         }
+
         public static bool operator ==(Ship a, Ship b)
         {
             return IsEqualsShips(a,b);
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Ship ship && 
+                   IsEqualsShips(this, ship);
+        }
+
+        public IAbstractAuxiliaryShip CreateAuxiliaryShip()
+        {
+            return new AuxiliaryShip();
+        }
+
+        public IAbstractMilitaryShip CreateMilitaryShip()
+        {
+            return new MilitaryShip();
+        }
+
+        public IAbstractMixShip CreateMixShip()
+        {
+            return new MixShip();
+        }
+
+       
         public static bool operator !=(Ship a, Ship b)
         {
             return !IsEqualsShips(a, b);

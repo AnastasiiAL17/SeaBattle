@@ -1,6 +1,8 @@
-﻿namespace SeaBattle
+﻿using SeaBattle.Interfaces;
+
+namespace SeaBattle
 {
-    public class AuxiliaryShip : Ship, IRepairable
+    public class AuxiliaryShip : Ship, IAbstractAuxiliaryShip
     {
         public string Repair()
         {
